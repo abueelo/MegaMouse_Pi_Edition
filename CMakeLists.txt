@@ -40,6 +40,8 @@ add_executable(MegaMouse_Pi_Edition
         Motors.cpp
         SensorArray.cpp
         Drivetrain.cpp
+        Maze.cpp
+        MazeSolver.cpp
         )
 
 pico_set_program_name(MegaMouse_Pi_Edition "MegaMouse_Pi_Edition")
