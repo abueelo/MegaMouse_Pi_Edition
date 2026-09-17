@@ -21,15 +21,16 @@ constexpr int StepsPerHalfCell = StepsPerCell / 2;
 constexpr int StepsPerQuarterTurn = 75;
 
 // PLACEHOLDER - bring-up-safe conservative values. A stepper has very little torque at a dead
-// stop, so starting too fast just stalls/twitches the motor instead of turning it. Once movement
-// is confirmed working, raise these gradually until it stalls again, then back off a bit.
-constexpr int ForwardCruiseStepsPerSecond = 400;
+// stop, so starting too fast just stalls/twitches the motor instead of turning it - ramp up to a
+// slow 50 sps cruise instead. Once movement is confirmed working, raise these gradually until it
+// stalls again, then back off a bit.
+constexpr int ForwardCruiseStepsPerSecond = 50;
 constexpr int ForwardRampSteps = 20;
-constexpr int ForwardRampStartStepsPerSecond = 100;
+constexpr int ForwardRampStartStepsPerSecond = 25;
 
-constexpr int TurnCruiseStepsPerSecond = 300;
+constexpr int TurnCruiseStepsPerSecond = 50;
 constexpr int TurnRampSteps = 10;
-constexpr int TurnRampStartStepsPerSecond = 100;
+constexpr int TurnRampStartStepsPerSecond = 25;
 
 // Which MotorDirections value drives each wheel "forward" is unknown until wired - flip
 // whichever one is backwards once bring-up shows which way is which. Turning is derived from

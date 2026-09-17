@@ -7,8 +7,8 @@
 // change.
 
 // Drivetrain - see Motor for what each pin does
-constexpr uint LeftMotorStepPin = 2;
-constexpr uint LeftMotorDirPin = 3;
+constexpr uint LeftMotorStepPin = 3;
+constexpr uint LeftMotorDirPin = 2;
 constexpr uint LeftMotorMsPin = 19;
 
 constexpr uint RightMotorStepPin = 1;

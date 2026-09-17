@@ -8,6 +8,47 @@
 #include "Maze.h"
 #include "MazeSolver.h"
 #include "Logger.h"
+#include "Motors.h"
+
+// TEMPORARY BRING-UP TEST - spins both wheel motors forward for 5 seconds on boot, nothing else.
+// The real maze-solving main() is below, disabled with #if 0 - flip the 0/1 to switch back once
+// this test is done.
+#if 1
+
+int main()
+{
+    stdio_init_all();
+    Logger logger;
+
+    Motor left(LeftMotorStepPin, LeftMotorDirPin, LeftMotorMsPin);
+    Motor right(RightMotorStepPin, RightMotorDirPin, RightMotorMsPin);
+
+    left.SetStepDirection(LeftForwardDirection);
+    right.SetStepDirection(RightForwardDirection);
+
+    logger.Log("spin test: both motors forward for 5 seconds");
+
+    left.SetStepRate(ForwardCruiseStepsPerSecond);
+    right.SetStepRate(ForwardCruiseStepsPerSecond);
+    // a step count guaranteed to take well over 5 seconds at the configured cruise rate - the
+    // move gets cut short by SetStepRate(0) below rather than ever finishing on its own
+    left.SetSteps(1000000, 0, 0);
+    right.SetSteps(1000000, 0, 0);
+
+    sleep_ms(5000);
+
+    left.SetStepRate(0);
+    right.SetStepRate(0);
+
+    logger.Log("spin test done");
+
+    while (true)
+    {
+        tight_loop_contents();
+    }
+}
+
+#else
 
 namespace
 {
@@ -162,3 +203,5 @@ int main()
         // Finished - nothing left to do
     }
 }
+
+#endif
