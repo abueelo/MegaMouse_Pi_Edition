@@ -1,4 +1,0 @@
-PRIMARY_SERVICE, GAP_SERVICE
-CHARACTERISTIC, GAP_DEVICE_NAME, READ, "MegaMouse"
-
-#import <nordic_spp_service.gatt>

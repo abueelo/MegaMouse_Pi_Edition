@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include "EnumHelper.h"
 
 // Every tunable constant for the mouse, gathered in one place for fine-tuning without hunting
@@ -36,5 +37,6 @@ constexpr MotorDirections RightForwardDirection = CounterClockwise;
 // How hard a wheel's step rate gets nudged during drift correction
 constexpr int DriftCorrectionNudgeStepsPerSecond = 150;
 
-// BLE
-constexpr const char *BleDeviceName = "MegaMouse";
+// How long the mouse pauses before each run starts - once when powered on, and again once it's
+// back home before the fast run
+constexpr uint32_t StartDelayMs = 5000;

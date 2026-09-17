@@ -59,17 +59,11 @@ target_link_libraries(MegaMouse_Pi_Edition
 # Add the standard include files to the build
 target_include_directories(MegaMouse_Pi_Edition PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
-        ${CMAKE_CURRENT_LIST_DIR}/Ble
 )
-
-pico_btstack_make_gatt_header(MegaMouse_Pi_Edition PRIVATE ${CMAKE_CURRENT_LIST_DIR}/Ble/MegaMouseBle.gatt)
 
 # Add any user requested libraries
 target_link_libraries(MegaMouse_Pi_Edition
-        pico_cyw43_arch_none
         hardware_pwm
-        pico_btstack_ble
-        pico_btstack_cyw43
         )
 
 pico_add_extra_outputs(MegaMouse_Pi_Edition)

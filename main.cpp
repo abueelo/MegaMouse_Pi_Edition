@@ -1,4 +1,3 @@
-#include <cstring>
 #include "pico/stdlib.h"
 
 #include "Pins.h"
@@ -59,7 +58,6 @@ int main()
     stdio_init_all();
 
     Logger logger;
-    logger.Init();
 
     SensorArray sensors(FrontSensorPin,
                          LeftSensorInnerPin, LeftSensorMiddlePin, LeftSensorOuterPin,
@@ -71,41 +69,18 @@ int main()
     Maze maze;
     MazeSolver solver(maze);
 
-    RobotPhase phase = Idle;
     uint8_t mouseX = 0;
     uint8_t mouseY = 0;
     CardinalDirections heading = North;
 
-    logger.Log("MegaMouse ready - send \"start\" to begin the discovery run");
+    logger.Logf("MegaMouse booting - discovery run starts in %u seconds", StartDelayMs / 1000);
+    sleep_ms(StartDelayMs);
+    logger.Log("starting discovery run");
+    drivetrain.BeginForwardHalfCell();
+    RobotPhase phase = CenteringInStartCell;
 
     while (true)
     {
-        logger.Update();
-
-        if (phase == Idle || phase == AwaitingFastRunCommand)
-        {
-            if (logger.HasCommand())
-            {
-                bool isStart = strcmp(logger.TakeCommand(), "start") == 0;
-                if (isStart && phase == Idle)
-                {
-                    logger.Log("starting discovery run");
-                    drivetrain.BeginForwardHalfCell();
-                    phase = CenteringInStartCell;
-                }
-                else if (isStart && phase == AwaitingFastRunCommand)
-                {
-                    logger.Log("starting fast run");
-                    mouseX = 0;
-                    mouseY = 0;
-                    // heading is whatever the return run left the mouse facing - the planner
-                    // below re-orients from there automatically, no explicit "face North" needed
-                    phase = FastRunning;
-                }
-            }
-            continue;
-        }
-
         if (phase == CenteringInStartCell)
         {
             if (!drivetrain.IsBusy())
@@ -149,8 +124,13 @@ int main()
             {
                 if (mouseX == 0 && mouseY == 0)
                 {
-                    logger.Log("back at start, send \"start\" to begin the fast run");
-                    phase = AwaitingFastRunCommand;
+                    logger.Logf("back at start - fast run starts in %u seconds", StartDelayMs / 1000);
+                    sleep_ms(StartDelayMs);
+                    logger.Log("starting fast run");
+                    // mouseX/mouseY are already (0,0) here; heading is whatever the return run
+                    // left the mouse facing - the planner below re-orients from there
+                    // automatically, no explicit "face North" needed
+                    phase = FastRunning;
                     continue;
                 }
 
