@@ -11,8 +11,8 @@ constexpr uint LeftMotorStepPin = 2;
 constexpr uint LeftMotorDirPin = 3;
 constexpr uint LeftMotorMsPin = 19;
 
-constexpr uint RightMotorStepPin = 5;
-constexpr uint RightMotorDirPin = 6;
+constexpr uint RightMotorStepPin = 1;
+constexpr uint RightMotorDirPin = 0;
 constexpr uint RightMotorMsPin = 20;
 
 // IR sensors - all digital, active-high (HIGH = wall/reflection detected)
